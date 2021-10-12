@@ -1,0 +1,24 @@
+.sign-up-form {
+    height: 550px;
+    width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 10px;
+    padding: 20px 20px;
+}
+.sign-up-form-header {
+    font-size: 30px;
+}
+
+.sign-up-form-error {
+    color: red;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.inline-block {
+    display: inline-block;
+}

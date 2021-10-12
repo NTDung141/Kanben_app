@@ -1,0 +1,15 @@
+.user-header {
+    background-color: #4257b2;
+}
+
+.user-header-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightslategrey;
+    height: 38px;
+    width: 38px;
+    border-radius: 100%;
+    color: white;
+    font-size: 20px;
+}
