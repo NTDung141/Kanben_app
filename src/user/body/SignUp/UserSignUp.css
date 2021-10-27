@@ -2,9 +2,10 @@
     height: 550px;
     width: 500px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 70px;
     border-radius: 10px;
     padding: 20px 20px;
+    box-shadow: 0px 0px 40px 0px rgb(0 0 0 / 5%);
 }
 .sign-up-form-header {
     font-size: 30px;

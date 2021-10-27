@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './UserSignUp.css'
 import { useHistory } from "react-router-dom"
+import axios from 'axios';
+import * as Notification from "../../../utils/notification/ToastNotification"
 
 function UserSignUp() {
 
@@ -11,7 +13,16 @@ function UserSignUp() {
         email: "",
         password: "",
         confirmPassword: "",
-        error: ""
+        error: "",
+        success: ""
+    })
+
+    const axiosClient = axios.create({
+        baseURL: process.env.REACT_APP_API_URL,
+        headers: {
+            'content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
     })
 
     const handleChange = (e) => {
@@ -19,13 +30,56 @@ function UserSignUp() {
         setUser({
             ...user,
             [name]: value,
-            error: ""
+            error: "",
+            success: ""
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (user.username && user.email && user.password && user.confirmPassword) {
-            history.push("/login")
+            if (user.username.length > 20) {
+                setUser({
+                    ...user,
+                    error: "Username must not exceed 20 characters",
+                    success: ""
+                })
+            }
+            else if (user.email.length > 50) {
+                setUser({
+                    ...user,
+                    error: "Email must not exceed 50 characters",
+                    success: ""
+                })
+            }
+            else if (user.password.length < 6 || user.password.length > 32) {
+                setUser({
+                    ...user,
+                    error: "Password must be between 6 and 32 characters",
+                    success: ""
+                })
+            }
+            else if (user.confirmPassword !== user.password) {
+                setUser({
+                    ...user,
+                    error: "Confirm password is incorrect",
+                    success: ""
+                })
+            }
+            else {
+                const res = await axios.post("http://kanben-deploy.herokuapp.com/register/", {
+                    username: user.username,
+                    email: user.email,
+                    password: user.password
+                })
+                if (res) {
+                    setUser({
+                        ...user,
+                        error: "",
+                        success: "Check your email for verification!"
+                    })
+                    history.push("/login")
+                }
+            }
         }
         else {
             setUser({
@@ -47,6 +101,8 @@ function UserSignUp() {
 
     return (
         <div className="sign-up-page">
+            {user.success && Notification.successNotification(user.success)}
+
             <form className="sign-up-form border">
                 <div className="mb-3 sign-up-form-header">Sign Up</div>
 

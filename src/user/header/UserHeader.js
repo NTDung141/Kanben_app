@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import * as authActions from "../../redux/actions/AuthAction"
+import axios from 'axios';
+import Cookies from "js-cookie";
 
 function UserHeader() {
 
@@ -11,7 +13,11 @@ function UserHeader() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const logout = () => {
+    const logout = async () => {
+        const token = Cookies.get('KB-Token')
+
+        Cookies.remove('KB-Token')
+
         dispatch(authActions.dispatchLogout())
         history.push("/")
     }
@@ -25,9 +31,9 @@ function UserHeader() {
                     </div>
 
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                        <NavLink className="dropdown-item" to="/admin">Admin</NavLink>
+                        {user.isAdmin && <NavLink className="dropdown-item" to="/admin">Admin</NavLink>}
                         <NavLink className="dropdown-item" to="/folder">My folder</NavLink>
-                        <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
+                        <NavLink className="dropdown-item" to="/my-profile">My profile</NavLink>
                         <div className="dropdown-item" onClick={logout}>Log out</div>
                     </div>
                 </div>
@@ -35,7 +41,7 @@ function UserHeader() {
         }
         else {
             return (
-                <NavLink className="btn btn-outline-warning my-2 my-sm-0" to="/login">Log in</NavLink>
+                <NavLink className="btn btn-outline-light my-2 my-sm-0" to="/login">Log in</NavLink>
             )
         }
     }
@@ -53,8 +59,8 @@ function UserHeader() {
 
                     </ul>
 
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search folder" />
+                    <form className="form-inline my-2 my-lg-0">
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search folder" />
 
                         {avatar()}
                     </form>

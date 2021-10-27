@@ -1,0 +1,78 @@
+.home-page {
+    padding: 50px 0px;
+    margin-left: 170px;
+    margin-right: 170px;
+}
+
+.word-result {
+    width: 100%;
+    margin-top: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 15px 15px;
+}
+
+.word-japanese {
+    color: red;
+    font-size: 30px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word-hiragana {
+    font-size: 18px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word-type {
+    color: tomato;
+    font-size: 15px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word-meaning {
+    color: blue;
+    font-size: 18px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word-example {
+    margin-left: 8px;
+    font-size: 18px;
+    color: red;
+    margin-bottom: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.word-example-meaning {
+    margin-left: 8px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.search-bar-drop-box {
+    position: absolute;
+    width: 97%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.search-bar-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
