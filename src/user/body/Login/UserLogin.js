@@ -63,6 +63,8 @@ function UserLogin() {
                     success: "Login successed!"
                 })
 
+                showNotification("Login successed!")
+
                 history.push("/")
             }).catch(err => {
                 const errorContent = err.response.data.data.username
@@ -92,10 +94,9 @@ function UserLogin() {
         }
     }
 
-    const showNotification = () => {
-        if (user.success) {
-            // return Notification.successNotification(user.success)
-            toast.success(user.success, {
+    const showNotification = (noti) => {
+        if (noti) {
+            toast.success(noti, {
                 position: "bottom-left",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -109,8 +110,7 @@ function UserLogin() {
 
     return (
         <div className="login-page">
-            {/* {user.success && Notification.successNotification(user.success)} */}
-            {showNotification()}
+            {/* {showNotification()} */}
 
             <form className="login-form border">
                 <div className="login-form-header mb-3">Login</div>
