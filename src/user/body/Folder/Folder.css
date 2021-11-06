@@ -1,0 +1,45 @@
+.folder-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 70px 100px;
+    margin-left: 170px;
+    margin-right: 170px;
+}
+
+.create-quiz-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.folder-item {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+    padding: 2px 20px;
+    color: #495057;
+}
+
+.folder-item:hover {
+    background-color: #e9ecef;
+}
+
+.folder-item-name {
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: none;
+    text-decoration: none !important;
+    color: #495057 !important;
+}
+
+.folder-item-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

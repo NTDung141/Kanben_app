@@ -13,3 +13,28 @@
     color: white;
     font-size: 20px;
 }
+
+.user-header-search {
+    width: 100%;
+    height: 45px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0px 10px;
+}
+
+.user-header-search-folder-drop-box {
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.search-folder-item {
+    display: block;
+    text-align: left;
+    cursor: pointer;
+}
+
+.search-folder-item-author {
+    font-size: 12px;
+    display: block;
+    margin-left: 5px;
+}
