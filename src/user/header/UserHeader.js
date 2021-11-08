@@ -88,7 +88,8 @@ function UserHeader() {
             return (
                 <div className="dropdown show">
                     <div className="user-header-avatar" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {user.username.slice(0, 1).toUpperCase()}
+                        {/* {user.username.slice(0, 1).toUpperCase()} */}
+                        <img src={user.profile_pic}></img>
                     </div>
 
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">

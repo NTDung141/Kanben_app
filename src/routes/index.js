@@ -8,6 +8,7 @@ import MyProfile from "../user/body/MyProfile/MyProfile"
 import EmailVerify from "../user/body/EmailVerify/EmailVerify"
 import FolderList from "../user/body/Folder/FolderList"
 import FolderItem from "../user/body/Folder/FolderItem"
+import AdminPage from "../user/body/Admin/AdminPage"
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => {
     return (
@@ -31,6 +32,7 @@ export default () => {
             <AppRoute path="/email-verify/:token" layout={UserLayout} component={EmailVerify} />
             <AppRoute path="/folder" layout={UserLayout} component={FolderList} />
             <AppRoute path="/folder-detail/:id" layout={UserLayout} component={FolderItem} />
+            <AppRoute path="/admin" layout={UserLayout} component={AdminPage} />
         </Switch>
     )
 }

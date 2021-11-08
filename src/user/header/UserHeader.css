@@ -12,6 +12,14 @@
     border-radius: 100%;
     color: white;
     font-size: 20px;
+    object-fit: cover;
+}
+
+.user-header-avatar img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    object-fit: cover;
 }
 
 .user-header-search {

@@ -14,7 +14,7 @@ function FolderList() {
     const [folderList, setFolderList] = useState([])
 
     const fetchMyFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, null, {
+        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
