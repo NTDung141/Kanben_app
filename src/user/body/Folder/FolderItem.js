@@ -11,7 +11,7 @@ function FolderItem(props) {
     const [folder, setFolder] = useState({})
 
     useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, null, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -27,7 +27,7 @@ function FolderItem(props) {
     }, [])
 
     useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, null, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
