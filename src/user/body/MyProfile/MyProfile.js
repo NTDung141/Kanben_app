@@ -67,7 +67,7 @@ function MyProfile() {
             formData.append("profile_pic", selectedFile)
         }
 
-        const res = await axios.put("http://kanben-deploy.herokuapp.com/profile/", formData, {
+        const res = await axios.put("https://kanben-deploy.herokuapp.com/profile/", formData, {
             headers: {
                 'Authorization': `Token ${token}`
                 // 'Content-Type': 'multipart/form-data'
@@ -128,7 +128,7 @@ function MyProfile() {
                 setChangePasswordError("Confirm password is incorrect")
             }
             else {
-                const res = axios.put("http://kanben-deploy.herokuapp.com/profile/change-password/", changePassword, {
+                const res = axios.put("https://kanben-deploy.herokuapp.com/profile/change-password/", changePassword, {
                     headers: {
                         'Authorization': `Token ${token}`
                     }

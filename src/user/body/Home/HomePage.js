@@ -23,7 +23,7 @@ function HomePage() {
     const token = Cookies.get('KB-Token')
 
     const fetchMyFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -52,7 +52,7 @@ function HomePage() {
     }
 
     const jishoSearch = (value) => {
-        const promise = axios.get(`http://kanben-deploy.herokuapp.com/search/?keyWord=${value}`, null, {
+        const promise = axios.get(`https://kanben-deploy.herokuapp.com/search/?keyWord=${value}`, null, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
@@ -198,7 +198,7 @@ function HomePage() {
                 name: newFolder
             }
 
-            const res = await axios.post(`http://kanben-deploy.herokuapp.com/folder/`, createRequest, {
+            const res = await axios.post(`https://kanben-deploy.herokuapp.com/folder/`, createRequest, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -248,7 +248,7 @@ function HomePage() {
             }
         }
 
-        const res = await axios.post(`http://kanben-deploy.herokuapp.com/search/`, postRequest, {
+        const res = await axios.post(`https://kanben-deploy.herokuapp.com/search/`, postRequest, {
             headers: {
                 'Authorization': `Token ${token}`
             }

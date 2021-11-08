@@ -68,7 +68,7 @@ function UserSignUp() {
                 })
             }
             else {
-                const res = await axios.post("http://kanben-deploy.herokuapp.com/register/", {
+                const res = await axios.post("https://kanben-deploy.herokuapp.com/register/", {
                     username: user.username,
                     email: user.email,
                     password: user.password

@@ -20,7 +20,7 @@ function UserHeader() {
     const [searchFolderValue, setSearchFolderValue] = useState("")
 
     const fetchAllFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/`, null, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/`, null, {
             headers: {
                 'Authorization': `Token ${token}`
             }

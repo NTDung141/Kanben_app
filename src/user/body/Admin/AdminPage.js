@@ -19,7 +19,7 @@ function AdminPage() {
     })
 
     const fetchUserList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/admin/users/`, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/admin/users/`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -216,7 +216,7 @@ function AdminPage() {
             admin_type: "Admin"
         }
 
-        const res = await axios.put(`http://kanben-deploy.herokuapp.com/admin/users/${item.id}`, request, {
+        const res = await axios.put(`https://kanben-deploy.herokuapp.com/admin/users/${item.id}`, request, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -242,7 +242,7 @@ function AdminPage() {
             admin_type: item.admin_type
         }
 
-        const res = await axios.put(`http://kanben-deploy.herokuapp.com/admin/users/${item.id}`, request, {
+        const res = await axios.put(`https://kanben-deploy.herokuapp.com/admin/users/${item.id}`, request, {
             headers: {
                 'Authorization': `Token ${token}`
             }

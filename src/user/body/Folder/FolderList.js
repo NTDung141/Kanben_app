@@ -14,7 +14,7 @@ function FolderList() {
     const [folderList, setFolderList] = useState([])
 
     const fetchMyFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -59,7 +59,7 @@ function FolderList() {
             name: edittingFolder.name
         }
 
-        const res = await axios.put(`http://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, updateRequest, {
+        const res = await axios.put(`https://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, updateRequest, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -80,7 +80,7 @@ function FolderList() {
     }
 
     const onDeleteEdittingFolder = async () => {
-        const res = await axios.delete(`http://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, null, {
+        const res = await axios.delete(`https://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, null, {
             headers: {
                 'Authorization': `Token ${token}`
             }
