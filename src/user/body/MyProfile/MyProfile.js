@@ -67,10 +67,6 @@ function MyProfile() {
             formData.append("profile_pic", selectedFile)
         }
 
-        console.log(selectedFile)
-        console.log(token)
-        console.log(userInfo)
-
         const res = await axios.put("http://kanben-deploy.herokuapp.com/profile/", formData, {
             headers: {
                 'Authorization': `Token ${token}`
@@ -92,7 +88,8 @@ function MyProfile() {
             changeUpdateAbility(false)
             // setSelectedFile(false)
             // setSelectedImage(false)
-            setSuccessNoti("Update successful!")
+            // setSuccessNoti("Update successful!")
+            showNotification("Update successful!")
         }
     }
 
@@ -142,7 +139,9 @@ function MyProfile() {
 
                     dispatch(authActions.dispatchLogout())
                     setChangePasswordSuccess(true)
-                    setSuccessNoti("Change password successfully!")
+                    // setSuccessNoti("Change password successfully!")
+                    showNotification("Change password successfully!")
+                    history.push("/")
                 }
             }
         }
@@ -159,9 +158,9 @@ function MyProfile() {
         }
     }
 
-    const showNotification = () => {
-        if (successNoti) {
-            toast.success(successNoti, {
+    const showNotification = (noti) => {
+        if (noti) {
+            toast.success(noti, {
                 position: "bottom-left",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -170,35 +169,49 @@ function MyProfile() {
                 draggable: true,
                 progress: undefined,
             })
-
-            setSuccessNoti(false)
         }
     }
 
     const errorInForm = () => {
         if (changePasswordError) {
             return (
-                <div className="mb-3">
+                <div className="mb-1">
                     <div className="form-text login-form-error flex-start">{changePasswordError}</div>
                 </div>
             )
         }
     }
 
+    const [tabIndex, setTabIndex] = useState(1)
+
+    const changeTab = (tabIndex) => {
+        setTabIndex(tabIndex)
+    }
+
     return (
         <div className="my-profile">
-            {showNotification()}
             <div className="my-profile-action">
-                <button className="btn btn-primary mr-2" onClick={() => changeUpdateAbility(true)}>Update profile</button>
+                {/* <button className="btn btn-primary mr-2" onClick={() => changeUpdateAbility(true)}>Update profile</button>
 
-                <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1">Change my password</button>
+                <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1">Change my password</button> */}
 
-                <div className="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <div className="nav-link" onClick={() => changeTab(1)}>Update profile</div>
+                    </li>
+
+                    <li className="nav-item">
+                        <div className="nav-link" onClick={() => changeTab(2)}>Change my password</div>
+                    </li>
+                </ul>
+
+
+                {/* <div className="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLongTitle">Change password</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={onCancelChangePassword}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -222,61 +235,89 @@ function MyProfile() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div className="my-profile-detail">
                 <div className="my-profile-title">
-                    <h2>My profile</h2>
+                    <h2>
+                        {tabIndex === 1 ? "My profile" : "Change my password"}
+                    </h2>
                 </div>
 
-                <div className="my-profile-form">
-                    <div className="my-profile-avatar">
-                        <div className="avatar-select-image">
-                            {selectedImage && <img src={selectedImage}></img>}
+                {(tabIndex === 1) &&
+                    <div className="my-profile-form">
+                        <div className="my-profile-avatar">
+                            <div className="avatar-select-image">
+                                {selectedImage && <img src={selectedImage}></img>}
 
-                            {(!selectedImage && userInfo.profile_pic) && <img src={userInfo.profile_pic}></img>}
-                        </div>
-
-                        {updateAbility &&
-                            <div className="avatar-select-action">
-                                <input type="file" style={{ visibility: "hidden" }} id="file" accept="image/png, image/jpeg" onChange={changeFileHandle} />
-
-                                <label for="file">
-                                    <span className="file-button">
-                                        <i className="fa fa-upload mr-2" aria-hidden="true"></i>
-                                        Choose Picture
-                                    </span>
-                                </label>
-                            </div>}
-                    </div>
-
-                    <div className="my-profile-info">
-                        <form>
-                            <div className="form-group">
-                                <label className="my-profile-info-label">Email address</label>
-                                <input type="email" className="form-control mb-1" name="email" value={userInfo.email} disabled />
-
-                                <label className="my-profile-info-label">Date of birth</label>
-                                <input type="date" className="form-control mb-1" name="date_of_birth" value={userInfo.date_of_birth} disabled={!updateAbility} onChange={onChangeInputHandle} />
-
-                                <label className="my-profile-info-label">Gender</label>
-
-                                <div className="form-check" onChange={onChangeInputHandle}>
-                                    <input className="gender-item" type="radio" name="gender" value="Male" checked={userInfo.gender === "Male"} disabled={!updateAbility} /> Male
-                                    <input className="gender-item" type="radio" name="gender" value="Female" checked={userInfo.gender === "Female"} disabled={!updateAbility} /> Female
-                                    <input className="gender-item" type="radio" name="gender" value="Unknown" checked={userInfo.gender === "Unknown"} disabled={!updateAbility} /> Other
-                                </div>
+                                {(!selectedImage && userInfo.profile_pic) && <img src={userInfo.profile_pic}></img>}
                             </div>
 
-                            {updateAbility && <div>
-                                <button type="button" className="btn btn-danger mr-2" onClick={onCancelUpdateHandle}>Cancel</button>
+                            {updateAbility &&
+                                <div className="avatar-select-action">
+                                    <input type="file" style={{ visibility: "hidden" }} id="file" accept="image/png, image/jpeg" onChange={changeFileHandle} />
 
-                                <button type="button" className="btn btn-primary" onClick={onSaveUpdateHandle}>Save</button>
-                            </div>}
-                        </form>
+                                    <label for="file">
+                                        <span className="file-button">
+                                            <i className="fa fa-upload mr-2" aria-hidden="true"></i>
+                                            Choose Picture
+                                        </span>
+                                    </label>
+                                </div>}
+                        </div>
+
+                        <div className="my-profile-info">
+                            <form>
+                                <div className="form-group">
+                                    <label className="my-profile-info-label">Email address</label>
+                                    <input type="email" className="form-control mb-1" name="email" value={userInfo.email} disabled />
+
+                                    <label className="my-profile-info-label">Date of birth</label>
+                                    <input type="date" className="form-control mb-1" name="date_of_birth" value={userInfo.date_of_birth} disabled={!updateAbility} onChange={onChangeInputHandle} />
+
+                                    <label className="my-profile-info-label">Gender</label>
+
+                                    <div className="form-check" onChange={onChangeInputHandle}>
+                                        <input className="gender-item" type="radio" name="gender" value="Male" checked={userInfo.gender === "Male"} disabled={!updateAbility} /> Male
+                                        <input className="gender-item" type="radio" name="gender" value="Female" checked={userInfo.gender === "Female"} disabled={!updateAbility} /> Female
+                                        <input className="gender-item" type="radio" name="gender" value="Unknown" checked={userInfo.gender === "Unknown"} disabled={!updateAbility} /> Other
+                                    </div>
+                                </div>
+
+                                {updateAbility &&
+                                    <div>
+                                        <button type="button" className="btn btn-danger mr-2" onClick={onCancelUpdateHandle}>Cancel</button>
+
+                                        <button type="button" className="btn btn-primary" onClick={onSaveUpdateHandle}>Save</button>
+                                    </div>}
+
+                                {!updateAbility &&
+                                    <div>
+                                        <button type="button" className="btn btn-primary" onClick={() => changeUpdateAbility(true)}>Edit</button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
                     </div>
-                </div>
+                }
+
+                {(tabIndex === 2) &&
+                    <div className="change-my-password-form">
+                        <label className="my-profile-info-label">Current password</label>
+                        <input type="password" className="form-control mb-1" name="old_password" value={changePassword.old_password} onChange={onChangePasswordHandle} />
+
+                        <label className="my-profile-info-label">New password</label>
+                        <input type="password" className="form-control mb-1" name="new_password1" value={changePassword.new_password1} onChange={onChangePasswordHandle} />
+
+                        <label className="my-profile-info-label">Confirm new password</label>
+                        <input type="password" className="form-control" name="new_password2" value={changePassword.new_password2} onChange={onChangePasswordHandle} />
+
+                        {errorInForm()}
+
+                        <button type="button" className="btn btn-primary mt-4" onClick={onSaveNewPassword}>Save changes</button>
+                    </div>
+                }
             </div>
         </div>
     );

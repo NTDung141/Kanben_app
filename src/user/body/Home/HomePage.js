@@ -23,7 +23,7 @@ function HomePage() {
     const token = Cookies.get('KB-Token')
 
     const fetchMyFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, null, {
+        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -106,14 +106,61 @@ function HomePage() {
 
     const showSenses = () => {
         if (showedResult.senses) {
-            const senses = showedResult.senses[0]
+            const sensesList = showedResult.senses
             return (
                 <div>
-                    <div className="word-type">{senses.parts_of_speech[0]}</div>
-                    <div className="word-meaning">{senses.english_definitions[0]}</div>
+                    <div className="flex-start">
+                        {showPartsOfSpeech(sensesList[0].parts_of_speech)}
+                    </div>
+
+                    {showEnglishDefinition(sensesList)}
                 </div>
             )
         }
+    }
+
+    const getEnglisDefinitionList = (sensesList) => {
+        let result = []
+        for (const sensesListItem in sensesList) {
+            const english_definitions = sensesList[sensesListItem].english_definitions
+            for (const item in english_definitions) {
+                result.push(english_definitions[item])
+            }
+        }
+
+        return result
+    }
+
+    const showPartsOfSpeech = (parts_of_speech) => {
+        let result = ""
+
+        for (const item in parts_of_speech) {
+            result = result + `${parts_of_speech[item]}` + ", "
+        }
+
+        result = result.slice(0, -2)
+
+        return (
+            <div className="word-type">{result}</div>
+        )
+    }
+
+    const showEnglishDefinition = (sensesList) => {
+        const english_definitions = getEnglisDefinitionList(sensesList)
+
+        let result = ""
+
+        for (const item in english_definitions) {
+            result = result + `${english_definitions[item]}` + ", "
+        }
+
+        result = result.slice(0, -2)
+
+
+        return (
+            <div className="word-meaning">{result}</div>
+        )
+
     }
 
     const showExample = () => {
@@ -194,7 +241,7 @@ function HomePage() {
             folders: folder.id,
             vocabulary: showedResult.slug,
             definitions: {
-                english_definitions: showedResult.senses[0].english_definitions
+                english_definitions: getEnglisDefinitionList(showedResult.senses)
             },
             reading: {
                 reading: reading

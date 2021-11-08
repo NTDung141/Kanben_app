@@ -64,3 +64,9 @@
     margin-right: 5px;
     margin-left: 30px;
 }
+
+.change-my-password-form {
+    height: 300px;
+    width: 350px;
+    margin: auto;
+}

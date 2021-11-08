@@ -3,6 +3,8 @@ import './UserSignUp.css'
 import { useHistory } from "react-router-dom"
 import axios from 'axios';
 import * as Notification from "../../../utils/notification/ToastNotification"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UserSignUp() {
 
@@ -77,6 +79,17 @@ function UserSignUp() {
                         error: "",
                         success: "Check your email for verification!"
                     })
+
+                    toast.success("Check your email for verification!", {
+                        position: "bottom-left",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+
                     history.push("/login")
                 }
             }
@@ -101,8 +114,6 @@ function UserSignUp() {
 
     return (
         <div className="sign-up-page">
-            {user.success && Notification.successNotification(user.success)}
-
             <form className="sign-up-form border">
                 <div className="mb-3 sign-up-form-header">Sign Up</div>
 
