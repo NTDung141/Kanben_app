@@ -45,24 +45,63 @@ function FolderItem(props) {
     const showWordsInFolder = () => {
         if (folder.list_vocabularies) {
             return folder.list_vocabularies.map(item => {
+                console.log(item)
                 return (
-                    <h5>{item.vocabulary}</h5>
+                    <div className="word-item">
+                        <div className="word-item-vocabulary">
+                            {item.vocabulary}
+                        </div>
+
+                        <div className="word-item-mean">
+                            <div className="word-item-meaning">
+                                {showMeaning(item)}
+                            </div>
+
+                            <div className="word-item-reading">
+                                {showReading(item)}
+                            </div>
+                        </div>
+
+                        <div className="word-item-action">
+                            <i className="fas fa-eye"></i>
+                        </div>
+                    </div>
                 )
             })
         }
     }
 
+    const showMeaning = (item) => {
+        let result = ""
+
+        const meaningList = item.definitions.english_definitions
+
+        for (const mean in meaningList) {
+            result = result + `${meaningList[mean]}` + ", "
+        }
+
+        result = result.slice(0, -2)
+
+        return result
+    }
+
+    const showReading = (item) => {
+        let result = ""
+
+        const readingList = item.reading.reading
+
+        for (const reading in readingList) {
+            result = result + `${readingList[reading]}` + ", "
+        }
+
+        result = result.slice(0, -2)
+
+        return result
+    }
+
     return (
-        <div>
-            <h3>FolderDetail Page</h3>
-
-            <h5>
-                Vocabulary list
-            </h5>
-
-            <div>
-                {showWordsInFolder()}
-            </div>
+        <div className="folder-detail">
+            {showWordsInFolder()}
         </div>
     );
 }

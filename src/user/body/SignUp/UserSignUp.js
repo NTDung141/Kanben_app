@@ -37,6 +37,24 @@ function UserSignUp() {
         })
     }
 
+    const validateEmail = (email) => {
+        var at = email.indexOf("@");
+        var dot = email.lastIndexOf(".");
+        var space = email.indexOf(" ");
+
+        if ((at != -1) && //có ký tự @
+            (at != 0) && //ký tự @ không nằm ở vị trí đầu
+            (dot != -1) && //có ký tự .
+            (dot > at + 1) && (dot < email.length - 1) //phải có ký tự nằm giữa @ và . cuối cùng
+            &&
+            (space == -1)) //không có khoẳng trắng 
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const handleSubmit = async () => {
         if (user.username && user.email && user.password && user.confirmPassword) {
             if (user.username.length > 20) {
@@ -50,6 +68,13 @@ function UserSignUp() {
                 setUser({
                     ...user,
                     error: "Email must not exceed 50 characters",
+                    success: ""
+                })
+            }
+            else if (!validateEmail(user.email)) {
+                setUser({
+                    ...user,
+                    error: "Email invalid",
                     success: ""
                 })
             }
