@@ -42,7 +42,7 @@ function UserLogin() {
                 password: user.password
             }
 
-            await axios.post("http://kanben-deploy.herokuapp.com/login/", loginData).then(res => {
+            await axios.post("https://kanben-deploy.herokuapp.com/login/", loginData).then(res => {
                 const resData = res.data.data
 
                 const token = resData.token
