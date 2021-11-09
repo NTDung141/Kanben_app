@@ -80,7 +80,7 @@ function FolderList() {
     }
 
     const onDeleteEdittingFolder = async () => {
-        const res = await axios.delete(`https://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, null, {
+        const res = await axios.delete(`https://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
