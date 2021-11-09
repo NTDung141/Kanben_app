@@ -74,7 +74,11 @@ function FolderItem(props) {
     const showMeaning = (item) => {
         let result = ""
 
-        const meaningList = item.definitions.english_definitions
+        let meaningList = item.definitions.english_definitions
+
+        if (meaningList.length > 4) {
+            meaningList = meaningList.slice(0, 4)
+        }
 
         for (const mean in meaningList) {
             result = result + `${meaningList[mean]}` + ", "
