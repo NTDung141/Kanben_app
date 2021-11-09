@@ -277,8 +277,10 @@ function HomePage() {
                 progress: undefined,
             })
         })
+    }
 
-
+    const onAddButtonClick = async () => {
+        await fetchMyFolderList()
     }
 
     return (
@@ -328,7 +330,7 @@ function HomePage() {
                                 <div className="word-action">
                                     <i className="fas fa-volume-up cursor-pointer mr-3"></i>
 
-                                    <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder"></i>
+                                    <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={onAddButtonClick}></i>
 
                                     <div className="modal fade" id="exampleModalCenterAddToFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div className="modal-dialog modal-dialog-centered" role="document">
