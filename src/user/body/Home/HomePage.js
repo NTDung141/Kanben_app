@@ -248,14 +248,26 @@ function HomePage() {
             }
         }
 
-        const res = await axios.post(`https://kanben-deploy.herokuapp.com/search/`, postRequest, {
+        await axios.post(`https://kanben-deploy.herokuapp.com/search/`, postRequest, {
             headers: {
                 'Authorization': `Token ${token}`
             }
-        })
+        }).then(res => {
+            if (res) {
+                toast.success("Added successful!", {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+        }).catch(err => {
+            const errorContent = err.response.data.data.vocabulary
 
-        if (res) {
-            toast.success("Added successful!", {
+            toast.error(errorContent, {
                 position: "bottom-left",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -264,7 +276,9 @@ function HomePage() {
                 draggable: true,
                 progress: undefined,
             })
-        }
+        })
+
+
     }
 
     return (
@@ -312,9 +326,9 @@ function HomePage() {
                         {user.username &&
                             <div className="col-sm-1">
                                 <div className="word-action">
-                                    <i className="fas fa-volume-up mr-3"></i>
+                                    <i className="fas fa-volume-up cursor-pointer mr-3"></i>
 
-                                    <i className="fas fa-plus" data-toggle="modal" data-target="#exampleModalCenterAddToFolder"></i>
+                                    <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder"></i>
 
                                     <div className="modal fade" id="exampleModalCenterAddToFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div className="modal-dialog modal-dialog-centered" role="document">
