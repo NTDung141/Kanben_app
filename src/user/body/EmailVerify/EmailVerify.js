@@ -9,7 +9,7 @@ function EmailVerify(props) {
 
     useEffect(async () => {
         const token = props.match.params.token
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/email-verify/?token=${token}`)
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/email-verify/?token=${token}`)
 
         if (res) {
             setSuccess(true)

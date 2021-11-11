@@ -23,7 +23,7 @@ function HomePage() {
     const token = Cookies.get('KB-Token')
 
     const fetchMyFolderList = async () => {
-        const res = await axios.get(`http://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -52,7 +52,7 @@ function HomePage() {
     }
 
     const jishoSearch = (value) => {
-        const promise = axios.get(`http://kanben-deploy.herokuapp.com/search/?keyWord=${value}`, null, {
+        const promise = axios.get(`https://kanben-deploy.herokuapp.com/search/?keyWord=${value}`, null, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
@@ -198,7 +198,7 @@ function HomePage() {
                 name: newFolder
             }
 
-            const res = await axios.post(`http://kanben-deploy.herokuapp.com/folder/`, createRequest, {
+            const res = await axios.post(`https://kanben-deploy.herokuapp.com/folder/`, createRequest, {
                 headers: {
                     'Authorization': `Token ${token}`
                 }
@@ -248,14 +248,26 @@ function HomePage() {
             }
         }
 
-        const res = await axios.post(`http://kanben-deploy.herokuapp.com/search/`, postRequest, {
+        await axios.post(`https://kanben-deploy.herokuapp.com/search/`, postRequest, {
             headers: {
                 'Authorization': `Token ${token}`
             }
-        })
+        }).then(res => {
+            if (res) {
+                toast.success("Added successful!", {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }
+        }).catch(err => {
+            const errorContent = err.response.data.data.vocabulary
 
-        if (res) {
-            toast.success("Added successful!", {
+            toast.error(errorContent, {
                 position: "bottom-left",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -264,7 +276,11 @@ function HomePage() {
                 draggable: true,
                 progress: undefined,
             })
-        }
+        })
+    }
+
+    const onAddButtonClick = async () => {
+        await fetchMyFolderList()
     }
 
     return (
@@ -312,9 +328,9 @@ function HomePage() {
                         {user.username &&
                             <div className="col-sm-1">
                                 <div className="word-action">
-                                    <i className="fas fa-volume-up mr-3"></i>
+                                    <i className="fas fa-volume-up cursor-pointer mr-3"></i>
 
-                                    <i className="fas fa-plus" data-toggle="modal" data-target="#exampleModalCenterAddToFolder"></i>
+                                    <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={onAddButtonClick}></i>
 
                                     <div className="modal fade" id="exampleModalCenterAddToFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div className="modal-dialog modal-dialog-centered" role="document">

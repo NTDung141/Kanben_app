@@ -16,7 +16,7 @@ function App() {
     const token = Cookies.get('KB-Token')
 
     if (token) {
-      const res = await axios.get('http://kanben-deploy.herokuapp.com/profile/', {
+      const res = await axios.get('https://kanben-deploy.herokuapp.com/profile/', {
         headers: {
           'Authorization': `Token ${token}`
         }

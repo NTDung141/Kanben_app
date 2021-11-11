@@ -43,3 +43,52 @@
     justify-content: flex-end;
     align-items: center;
 }
+
+.folder-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 70px 100px;
+    margin-left: 170px;
+    margin-right: 170px;
+}
+
+.word-item {
+    display: grid;
+    grid-template-columns: 4fr 7fr 1fr;
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 10px;
+    padding: 2px 20px;
+    color: #495057;
+}
+
+.word-item-vocabulary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-item-mean {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.word-item-meaning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-item-reading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-item-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
