@@ -42,18 +42,21 @@
     color: tomato;
     font-size: 15px;
     margin-bottom: 5px;
-    /* display: flex;
-    align-items: flex-start; */
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* display: inline-block; */
 }
 
 .word-meaning {
     color: blue;
     font-size: 18px;
     margin-bottom: 5px;
+    /* text-align: left; */
+    /* display: inline-block; */
     display: flex;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    justify-content: center;
 }
 
 .word-example {

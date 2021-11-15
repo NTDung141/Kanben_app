@@ -20,6 +20,8 @@ function HomePage() {
 
     const [newFolder, setNewFolder] = useState("")
 
+    const [example, setExample] = useState([])
+
     const token = Cookies.get('KB-Token')
 
     const fetchMyFolderList = async () => {
@@ -72,6 +74,28 @@ function HomePage() {
         }
     }
 
+    const getExample = (value) => {
+        const promise = axios.get(`https://kanben-deploy.herokuapp.com/sentences/?keyWord=${value}`, null,
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                }
+            })
+        if (promise) {
+            promise
+                .then(res => {
+                    if (res) {
+                        const data = res.data
+                        setExample(data.results)
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }
+
     const showRecommend = () => {
         if (result.length > 0) {
             return result.map((item, index) => {
@@ -90,7 +114,8 @@ function HomePage() {
     const showChoosenWord = (item) => {
         setNewWord("")
         setShowedResult(item)
-        jisho.searchForExamples(item.slug)
+        getExample(item.slug)
+        console.log(item.slug)
     }
 
     const showJapanesWord = () => {
@@ -113,7 +138,9 @@ function HomePage() {
                         {showPartsOfSpeech(sensesList[0].parts_of_speech)}
                     </div>
 
-                    {showEnglishDefinition(sensesList)}
+                    <div className="flex-start">
+                        {showEnglishDefinition(sensesList)}
+                    </div>
                 </div>
             )
         }
@@ -141,7 +168,10 @@ function HomePage() {
         result = result.slice(0, -2)
 
         return (
-            <div className="word-type">{result}</div>
+            <div className="word-type">
+                <i className="far fa-star mr-2"></i>
+                {result}
+            </div>
         )
     }
 
@@ -158,18 +188,31 @@ function HomePage() {
 
 
         return (
-            <div className="word-meaning">{result}</div>
+            <div className="word-meaning">
+                <i className="fas fa-diamond mr-2"></i>
+                {result}
+            </div>
         )
 
     }
 
     const showExample = () => {
-        return (
-            <div>
-                <div className="word-example">Example example example example example example</div>
-                <div className="word-example-meaning">Example example example example example example</div>
-            </div>
-        )
+        if (example.length > 0) {
+            let exampleList = example
+
+            if (exampleList.length > 2) {
+                exampleList = exampleList.splice(0, 2)
+            }
+
+            return exampleList.map(item => {
+                return (
+                    <div>
+                        <div className="word-example">{item.text}</div>
+                        {/* <div className="word-example-meaning">Example example example example example example</div> */}
+                    </div>
+                )
+            })
+        }
     }
 
     const showFolderList = () => {
@@ -321,7 +364,7 @@ function HomePage() {
 
                                 {showSenses()}
 
-                                {/* {showExample()} */}
+                                {showExample()}
                             </div>
                         </div>
 
