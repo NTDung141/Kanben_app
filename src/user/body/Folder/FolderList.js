@@ -111,9 +111,9 @@ function FolderList() {
                         </NavLink>
 
                         <div className="folder-item-action">
-                            <i className="fas fa-pen mr-3" data-toggle="modal" data-target="#exampleModalCenterFolderUpdate" onClick={() => onEditFolder(item)}></i>
+                            <i className="fas fa-pen mr-3 cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterFolderUpdate" onClick={() => onEditFolder(item)}></i>
 
-                            <i className="fas fa-trash" data-toggle="modal" data-target="#exampleModalCenterFolderDelete" onClick={() => onEditFolder(item)}></i>
+                            <i className="fas fa-trash cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterFolderDelete" onClick={() => onEditFolder(item)}></i>
                         </div>
 
                         <div className="modal fade" id="exampleModalCenterFolderUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -170,12 +170,14 @@ function FolderList() {
     }
 
     return (
-        <div className="folder-list">
-            <div className="create-quiz-btn">
-                {/* <button className="btn btn-primary">Create quiz</button> */}
-            </div>
+        <div className="bg-color min-vh-100">
+            <div className="folder-list">
+                <div className="create-quiz-btn">
+                    {/* <button className="btn btn-primary">Create quiz</button> */}
+                </div>
 
-            {showFolderList()}
+                {showFolderList()}
+            </div>
         </div>
     );
 }

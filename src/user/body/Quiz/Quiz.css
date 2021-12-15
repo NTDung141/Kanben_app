@@ -12,6 +12,7 @@
     border-radius: 10px;
     box-shadow: 0px 0px 40px 0px rgb(0 0 0 / 5%);
     padding: 15px 15px;
+    background-color: #fff;
 }
 
 .quiz-modal-header {
@@ -53,10 +54,14 @@
     justify-content: center;
     min-width: 200px;
     min-height: 70px;
-    border: 1px solid gray;
-    border-radius: 2px;
+    border: 1px solid #edeff4;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: 300;
+}
+
+.quiz-answer-item:hover {
+    border-color: #939bb4;
 }
 
 .quiz-footer {
