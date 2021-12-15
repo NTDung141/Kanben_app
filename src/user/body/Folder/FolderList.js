@@ -172,7 +172,7 @@ function FolderList() {
     return (
         <div className="folder-list">
             <div className="create-quiz-btn">
-                <button className="btn btn-primary">Create quiz</button>
+                {/* <button className="btn btn-primary">Create quiz</button> */}
             </div>
 
             {showFolderList()}

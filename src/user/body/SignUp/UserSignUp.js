@@ -42,9 +42,9 @@ function UserSignUp() {
         var dot = email.lastIndexOf(".");
         var space = email.indexOf(" ");
 
-        if ((at != -1) && //có ký tự @
-            (at != 0) && //ký tự @ không nằm ở vị trí đầu
-            (dot != -1) && //có ký tự .
+        if ((at !== -1) && //có ký tự @
+            (at !== 0) && //ký tự @ không nằm ở vị trí đầu
+            (dot !== -1) && //có ký tự .
             (dot > at + 1) && (dot < email.length - 1) //phải có ký tự nằm giữa @ và . cuối cùng
             &&
             (space == -1)) //không có khoẳng trắng 
