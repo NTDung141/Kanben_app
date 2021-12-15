@@ -212,6 +212,7 @@ function Quiz(props) {
     }
 
     return (
+        <div className="bg-color">
         <div className="quiz-page">
             <div className="quiz-modal">
                 <div className="quiz-modal-header">
@@ -234,6 +235,7 @@ function Quiz(props) {
                     </div>
                 }
             </div>
+        </div>
         </div>
     );
 }

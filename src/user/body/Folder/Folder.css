@@ -1,6 +1,4 @@
 .folder-list {
-    display: grid;
-    grid-template-columns: 1fr;
     padding: 70px 100px;
     margin-left: 170px;
     margin-right: 170px;
@@ -15,18 +13,26 @@
 .folder-item {
     display: grid;
     grid-template-columns: 8fr 4fr;
-    border: 1px solid gray;
     border-radius: 3px;
     width: 100%;
     height: 60px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     padding: 2px 20px;
     color: #495057;
     box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 5%);
+    background-color: #fff;
+    transition: all .12s cubic-bezier(.47,0,.745,.715);
+    /* box-sizing: border-box;   */
+    border-bottom: 0.25rem solid #fff ;
+    border-top: 0.25rem solid #fff ;
+    position: relative;
 }
 
 .folder-item:hover {
-    background-color: #e9ecef;
+    /* background-color: #e9ecef; */
+    border-bottom-color: #cedaf3;
+    /* outline: 1px solid black; */
+
 }
 
 .folder-item-name {
@@ -56,14 +62,14 @@
 .word-item {
     display: grid;
     grid-template-columns: 4fr 7fr 1fr;
-    border: 1px solid gray;
     border-radius: 3px;
     width: 100%;
     min-height: 60px;
     margin-bottom: 10px;
-    padding: 2px 20px;
+    padding: 10px 20px;
     color: #495057;
-    box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 5%);
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    background-color: #fff;
 }
 
 .word-item:hover {
@@ -73,24 +79,28 @@
 .word-item-vocabulary {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    border-right: 1px solid #bebebe;
+
 }
 
 .word-item-mean {
     display: grid;
     grid-template-columns: 1fr;
+    padding-left: 20px;
+
 }
 
 .word-item-meaning {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .word-item-reading {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:  flex-start;
 }
 
 .word-item-action {
@@ -98,9 +108,11 @@
     align-items: center;
     justify-content: center;
 }
-
+.word-item-action .icon-right {
+    margin-right: 10px;
+} 
 .flash-card {
-    min-height: 250px;
+    min-height: 300px;
     width: 80%;
     border-radius: 10px;
     box-shadow: 0px 0px 40px 0px rgb(0 0 0 / 5%);
@@ -109,6 +121,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+    background-color: #fff;
 }
 
 .flash-card-word {

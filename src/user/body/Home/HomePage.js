@@ -327,107 +327,109 @@ function HomePage() {
     }
 
     return (
-        <div className="home-page">
-            <div className="row">
-                <div className="col-sm-10">
-                    <input type="text" className="form-control" placeholder="Search" name="newWord" value={newWord} onChange={hanldeSearchNewWordChange} />
-                    {newWord &&
-                        <div className="search-bar-drop-box">
-                            {showRecommend()}
-                        </div>
-                    }
-                </div>
-
-                <div className="col-sm-1">
-                    <div className="btn-group">
-                        <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select language
-                        </button>
-
-                        <div className="dropdown-menu dropdown-menu-right">
-                            <button className="dropdown-item" type="button">日本 - Vietnamese</button>
-                            <button className="dropdown-item" type="button">Vietnamese - 日本</button>
-                        </div>
+        <div className="home-page min-vh-100 bg-color">
+            <div className="home-page-content">
+                <div className="row">
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control" placeholder="Search" name="newWord" value={newWord} onChange={hanldeSearchNewWordChange} />
+                        {newWord &&
+                            <div className="search-bar-drop-box">
+                                {showRecommend()}
+                            </div>
+                        }
                     </div>
-                </div>
-            </div>
 
+                    <div className="col-sm-1">
+                        <div className="btn-group">
+                            <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select language
+                            </button>
 
-            {showedResult.slug &&
-                <div className="word-result">
-                    <div className="row">
-                        <div className="col-sm-11">
-                            <div className="word-info">
-                                <div className="word-japanese">{showedResult.slug}</div>
-
-                                {showJapanesWord()}
-
-                                {showSenses()}
-
-                                {showExample()}
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <button className="dropdown-item" type="button">日本 - Vietnamese</button>
+                                <button className="dropdown-item" type="button">Vietnamese - 日本</button>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        {user.username &&
-                            <div className="col-sm-1">
-                                <div className="word-action">
-                                    <i className="fas fa-volume-up cursor-pointer mr-3"></i>
 
-                                    <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={onAddButtonClick}></i>
+                {showedResult.slug &&
+                    <div className="word-result">
+                        <div className="row">
+                            <div className="col-sm-11">
+                                <div className="word-info">
+                                    <div className="word-japanese">{showedResult.slug}</div>
 
-                                    <div className="modal fade" id="exampleModalCenterAddToFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div className="modal-dialog modal-dialog-centered" role="document">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="exampleModalLongTitle">My folder</h5>
+                                    {showJapanesWord()}
 
-                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div className="modal-body">
-                                                    <div className="add-folder-list">
-                                                        <h6 className="search-bar-item mb-3">Choose a folder to add new word</h6>
+                                    {showSenses()}
 
-                                                        {showFolderList()}
+                                    {showExample()}
+                                </div>
+                            </div>
+
+                            {user.username &&
+                                <div className="col-sm-1">
+                                    <div className="word-action">
+                                        <i className="fas fa-volume-up cursor-pointer mr-3"></i>
+
+                                        <i className="fas fa-plus cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={onAddButtonClick}></i>
+
+                                        <div className="modal fade" id="exampleModalCenterAddToFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLongTitle">My folder</h5>
+
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="add-folder-list">
+                                                            <h6 className="search-bar-item mb-3">Choose a folder to add new word</h6>
+
+                                                            {showFolderList()}
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer flex-center">
+                                                        <button type="button" className="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenterCreateFolder">Create new</button>
+
+                                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                 </div>
-                                                <div className="modal-footer flex-center">
-                                                    <button type="button" className="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenterCreateFolder">Create new</button>
+                                            </div>
+                                        </div>
 
-                                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <div className="modal fade" id="exampleModalCenterCreateFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLongTitle">New folder</h5>
+
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div className="modal-body">
+                                                        <input type="text" className="form-control" name="folderName" value={newFolder} onChange={handleChangeNewFolder} />
+                                                    </div>
+
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={cancelCreateNewFolder}>Close</button>
+
+                                                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={createNewFolder}>Save</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="modal fade" id="exampleModalCenterCreateFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div className="modal-dialog modal-dialog-centered" role="document">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="exampleModalLongTitle">New folder</h5>
-
-                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-
-                                                <div className="modal-body">
-                                                    <input type="text" className="form-control" name="folderName" value={newFolder} onChange={handleChangeNewFolder} />
-                                                </div>
-
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenterAddToFolder" onClick={cancelCreateNewFolder}>Close</button>
-
-                                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={createNewFolder}>Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>}
-                    </div>
-                </div>}
+                                </div>}
+                        </div>
+                    </div>}
+            </div>
         </div>
     );
 }

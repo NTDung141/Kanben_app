@@ -15,6 +15,8 @@ function FolderItem(props) {
     const [folder, setFolder] = useState({})
     const [flashCardIndex, setFlashCardIndexr] = useState(0)
 
+    const [clickBack, setClickBack] = useState(false)
+
     useEffect(async () => {
         const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
             headers: {
@@ -67,7 +69,8 @@ function FolderItem(props) {
                         </div>
 
                         <div className="word-item-action">
-                            <i className="fas fa-eye"></i>
+                            <i className="fas fa-eye icon-right"></i>
+                            <i className="fas fa-trash"></i>
                         </div>
                     </div>
                 )
@@ -112,21 +115,21 @@ function FolderItem(props) {
 
         }
         else {
+            setClickBack(false)
             setFlashCardIndexr(index)
         }
     }
 
+    const onCickBackFlashCard = () => {
+        setClickBack(!clickBack)
+    }
+
     const showWordInFlashCard = () => {
-        if (folder.list_vocabularies) {
-            return (
-                <div className="flash-card-word">{folder.list_vocabularies[flashCardIndex].vocabulary}</div>
-            )
-        }
-        else {
-            return (
-                <div className="flash-card-word"></div>
-            )
-        }
+        return folder.list_vocabularies
+        ?  <div className="flash-card-word " >
+                {clickBack ? folder.list_vocabularies[flashCardIndex].reading.reading[0] :folder.list_vocabularies[flashCardIndex].vocabulary}
+            </div> 
+        : <div className="flash-card-word"></div>
     }
 
     const showFlashCardAction = () => {
@@ -167,24 +170,26 @@ function FolderItem(props) {
     }
 
     return (
-        <div className="folder-detail">
-            <div className="flash-card">
-                {showWordInFlashCard()}
-            </div>
-
-            {showFlashCardAction()}
-
-            <div className="foler-owner">
-                <div className="folder-owner-info">
-                    Made by {folder.author_name ? folder.author_name : ""}
+        <div className="bg-color ">
+            <div className="folder-detail">
+                <div className="flash-card cursor-pointer" onClick={onCickBackFlashCard}>
+                    {showWordInFlashCard()}
                 </div>
 
-                <div className="create-quiz-btn">
-                    <button className="btn btn-primary" onClick={goToQuiz}>Create quiz</button>
-                </div>
-            </div>
+                {showFlashCardAction()}
 
-            {showWordsInFolder()}
+                <div className="foler-owner">
+                    <div className="folder-owner-info">
+                        Made by {folder.author_name ? folder.author_name : ""}
+                    </div>
+
+                    <div className="create-quiz-btn">
+                        <button className="btn btn-primary" onClick={goToQuiz}>Create quiz</button>
+                    </div>
+                </div>
+
+                {showWordsInFolder()}
+            </div>
         </div>
     );
 }
