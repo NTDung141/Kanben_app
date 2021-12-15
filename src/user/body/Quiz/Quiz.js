@@ -17,6 +17,24 @@ function Quiz(props) {
     const [correctNumber, setCorrectNumber] = useState(0)
     const [isEnded, setIsEnded] = useState(false)
 
+    // useEffect(async () => {
+    //     const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
+    //         headers: {
+    //             'Authorization': `Token ${token}`
+    //         }
+    //     })
+
+    //     if (res) {
+    //         if (res.data) {
+    //             if (res.data.data) {
+    //                 const gettedFolder = res.data.data
+    //                 setFolder(gettedFolder)
+    //                 setShuffledList(createShuffledList(gettedFolder.list_vocabularies))
+    //             }
+    //         }
+    //     }
+    // }, [])
+
     useEffect(async () => {
         const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
             headers: {
@@ -30,24 +48,7 @@ function Quiz(props) {
                     const gettedFolder = res.data.data
                     setFolder(gettedFolder)
                     setShuffledList(createShuffledList(gettedFolder.list_vocabularies))
-                }
-            }
-        }
-    }, [])
-
-    useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        })
-
-        if (res) {
-            if (res.data) {
-                if (res.data.data) {
-                    const gettedFolder = res.data.data
-                    setFolder(gettedFolder)
-                    setShuffledList(createShuffledList(gettedFolder.list_vocabularies))
+                    console.log(res.data)
                 }
             }
         }
@@ -75,27 +76,29 @@ function Quiz(props) {
     }
 
     const showQuizAnswer = () => {
+        console.log(answerList)
         if (answerList.length > 0) {
             return answerList.map((item, index) => {
                 if (!checkCurrentAnswer) {
+                    console.log(item)
                     return (
-                        <div className="quiz-answer-item" onClick={() => checkCorrect(item, index)}>{item.word.reading.reading[0]}</div>
+                        <div className="quiz-answer-item" onClick={() => checkCorrect(item, index)}>{item.word.reading ? item.word.reading.reading[0] : ""}</div>
                     )
                 }
                 else {
                     if (item.checkCorrect) {
                         return (
-                            <div className="quiz-answer-item quiz-answer-item-true" onClick={() => checkCorrect(item, index)}>{item.word.reading.reading[0]}</div>
+                            <div className="quiz-answer-item quiz-answer-item-true">{item.word.reading ? item.word.reading.reading[0] : ""}</div>
                         )
                     }
                     else if (index === checkCurrentAnswer.choosenIndex) {
                         return (
-                            <div className="quiz-answer-item quiz-answer-item-false" onClick={() => checkCorrect(item, index)}>{item.word.reading.reading[0]}</div>
+                            <div className="quiz-answer-item quiz-answer-item-false">{item.word.reading.reading[0]}</div>
                         )
                     }
                     else {
                         return (
-                            <div className="quiz-answer-item" onClick={() => checkCorrect(item, index)}>{item.word.reading.reading[0]}</div>
+                            <div className="quiz-answer-item">{item.word.reading.reading[0]}</div>
                         )
                     }
                 }
@@ -174,6 +177,7 @@ function Quiz(props) {
 
     const onNextQuiz = (index) => {
         if (shuffledList && quizIndex < shuffledList.length - 1) {
+            console.log("next")
             setQuizIndex(index)
             setCheckCurrentAnswer(false)
         }
