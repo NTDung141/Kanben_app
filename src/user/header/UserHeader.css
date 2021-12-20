@@ -35,6 +35,18 @@
     overflow-x: hidden;
 }
 
+.user-header-search-folder-drop-box1 {
+    position: absolute;
+    top: 50px;
+    right: 60px;
+    max-width: 500px;
+    min-width: 350px;
+    max-height: 300px;
+    overflow-x: hidden;
+    z-index: 99;
+    border-radius: 5px;
+}
+
 .search-folder-item {
     display: block;
     text-align: left;

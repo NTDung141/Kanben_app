@@ -20,11 +20,13 @@ function UserHeader() {
     const [searchFolderValue, setSearchFolderValue] = useState("")
 
     const fetchAllFolderList = async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/`, {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        })
+        // const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/`, {
+        //     headers: {
+        //         'Authorization': `Token ${token}`
+        //     }
+        // })
+
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/`)
 
         if (res) {
             if (res.data) {
@@ -108,6 +110,17 @@ function UserHeader() {
         }
     }
 
+    const recommendSearchFolder = () => {
+        if (searchFolderValue) {
+            console.log(searchFolderValue)
+            return (
+                <div className="user-header-search-folder-drop-box1">
+                    {showSearchFolderList()}
+                </div>
+            )
+        }
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark user-header">
@@ -122,9 +135,9 @@ function UserHeader() {
                     </ul>
 
                     <form className="form-inline my-2 my-lg-0">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search folder" data-toggle="modal" data-target="#exampleModalCenterSearchFolder" onClick={fetchAllFolderList} />
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search folder" data-toggle="modal" data-target="#exampleModalCenterSearchFolder" onClick={fetchAllFolderList} value={searchFolderValue} onChange={handleChangeSearchFolder} />
 
-                        <div className="modal fade" id="exampleModalCenterSearchFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        {/* <div className="modal fade" id="exampleModalCenterSearchFolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -150,12 +163,14 @@ function UserHeader() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         {avatar()}
                     </form>
                 </div>
             </nav>
+
+            {recommendSearchFolder()}
         </div>
     );
 }

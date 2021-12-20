@@ -12,6 +12,7 @@ function FolderList() {
     const user = useSelector(state => state.AuthReducer)
 
     const [folderList, setFolderList] = useState([])
+    const [topicList, setTopicList] = useState([])
 
     const fetchMyFolderList = async () => {
         const res = await axios.get(`https://kanben-deploy.herokuapp.com/listFolder/${user.id}`, {
@@ -33,6 +34,22 @@ function FolderList() {
         await fetchMyFolderList()
     }, [])
 
+    const fetchTopicList = async () => {
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/listTopic/`, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if (res) {
+            if (res.data) {
+                if (res.data.data) {
+                    setTopicList(res.data.data)
+                }
+            }
+        }
+    }
+
     const initialEdittingFolder = {
         id: "",
         name: ""
@@ -51,12 +68,14 @@ function FolderList() {
 
     const onEditFolder = (item) => {
         setEdittingFolder(item)
+        fetchTopicList()
     }
 
     const onSaveEdittingFolder = async () => {
         const updateRequest = {
             visibility: true,
-            name: edittingFolder.name
+            name: edittingFolder.name,
+            topic: edittingFolder.topic
         }
 
         const res = await axios.put(`https://kanben-deploy.herokuapp.com/folder/${edittingFolder.id}`, updateRequest, {
@@ -101,6 +120,7 @@ function FolderList() {
     }
 
     const showFolderList = () => {
+        console.log(folderList)
         if (folderList.length > 0) {
             return folderList.map(item => {
                 return (
@@ -116,6 +136,8 @@ function FolderList() {
                             <i className="fas fa-trash cursor-pointer" data-toggle="modal" data-target="#exampleModalCenterFolderDelete" onClick={() => onEditFolder(item)}></i>
                         </div>
 
+
+
                         <div className="modal fade" id="exampleModalCenterFolderUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
@@ -127,8 +149,17 @@ function FolderList() {
                                         </button>
                                     </div>
 
-                                    <div className="modal-body">
+                                    <div className="modal-body folder-update-form">
+                                        <label className="form-label">Folder Name</label>
+
                                         <input type="text" className="form-control" name="folderName" value={edittingFolder.name} onChange={handleChangeFolderName} />
+
+                                        <label className="form-label">Topic</label>
+
+                                        <select className="form-select" onChange={handleTopicChange}>
+                                            {!item.topic && <option selected>Choose your topic</option>}
+                                            {showTopicDropBox()}
+                                        </select>
                                     </div>
 
                                     <div className="modal-footer">
@@ -163,10 +194,39 @@ function FolderList() {
                                 </div>
                             </div>
                         </div>
+
+                        {item.topic && <div className="flex-left">
+                            <div className="folder-topic">{item.topic_name}</div>
+                        </div>}
                     </div>
                 )
             })
         }
+    }
+
+    const showTopicDropBox = () => {
+        if (topicList.length > 0) {
+            return topicList.map((item) => {
+                if (edittingFolder.topic && edittingFolder.topic === item.id) {
+                    return (
+                        <option selected value={item.id}>{item.topic_name}</option>
+                    )
+                }
+                else {
+                    return (
+                        <option value={item.id}>{item.topic_name}</option>
+                    )
+                }
+            })
+        }
+    }
+
+    const handleTopicChange = (e) => {
+        const value = e.target.value
+        setEdittingFolder({
+            ...edittingFolder,
+            topic: value
+        })
     }
 
     return (

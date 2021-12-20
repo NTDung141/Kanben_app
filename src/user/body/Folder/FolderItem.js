@@ -18,11 +18,12 @@ function FolderItem(props) {
     const [clickBack, setClickBack] = useState(false)
 
     useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        })
+        // const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
+        //     headers: {
+        //         'Authorization': `Token ${token}`
+        //     }
+        // })
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`)
 
         if (res) {
             if (res.data) {
@@ -34,11 +35,12 @@ function FolderItem(props) {
     }, [])
 
     useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        })
+        // const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
+        //     headers: {
+        //         'Authorization': `Token ${token}`
+        //     }
+        // })
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`)
 
         if (res) {
             if (res.data) {
@@ -126,10 +128,10 @@ function FolderItem(props) {
 
     const showWordInFlashCard = () => {
         return folder.list_vocabularies
-        ?  <div className="flash-card-word " >
-                {clickBack ? folder.list_vocabularies[flashCardIndex].reading.reading[0] :folder.list_vocabularies[flashCardIndex].vocabulary}
-            </div> 
-        : <div className="flash-card-word"></div>
+            ? <div className="flash-card-word " >
+                {clickBack ? folder.list_vocabularies[flashCardIndex].reading.reading[0] : folder.list_vocabularies[flashCardIndex].vocabulary}
+            </div>
+            : <div className="flash-card-word"></div>
     }
 
     const showFlashCardAction = () => {
@@ -184,7 +186,7 @@ function FolderItem(props) {
                     </div>
 
                     <div className="create-quiz-btn">
-                        <button className="btn btn-primary" onClick={goToQuiz}>Create quiz</button>
+                        <button className="btn btn-primary" onClick={goToQuiz} disabled={folder.list_vocabularies && folder.list_vocabularies.length < 4}>Create quiz</button>
                     </div>
                 </div>
 
