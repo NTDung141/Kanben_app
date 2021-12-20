@@ -70,4 +70,13 @@
 .admin-page-search-user-drop-box {
     max-height: 300px;
     overflow-x: hidden;
+    z-index: 99;
+    position: absolute;
+    min-width: 530px;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }

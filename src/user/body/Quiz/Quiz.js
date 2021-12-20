@@ -36,11 +36,12 @@ function Quiz(props) {
     // }, [])
 
     useEffect(async () => {
-        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
-            headers: {
-                'Authorization': `Token ${token}`
-            }
-        })
+        // const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`, {
+        //     headers: {
+        //         'Authorization': `Token ${token}`
+        //     }
+        // })
+        const res = await axios.get(`https://kanben-deploy.herokuapp.com/folder/${folderId}`)
 
         if (res) {
             if (res.data) {
@@ -213,29 +214,29 @@ function Quiz(props) {
 
     return (
         <div className="bg-color">
-        <div className="quiz-page">
-            <div className="quiz-modal">
-                <div className="quiz-modal-header">
-                    <div className="quiz-number">{!isEnded ? (quizIndex + 1) + "/" + shuffledList.length : ""}</div>
+            <div className="quiz-page">
+                <div className="quiz-modal">
+                    <div className="quiz-modal-header">
+                        <div className="quiz-number">{!isEnded ? (quizIndex + 1) + "/" + shuffledList.length : ""}</div>
 
-                    <div className="quiz-exit-icon">
-                        <NavLink className="fas fa-times" to={`/folder-detail/${folderId}`}></NavLink>
-                    </div>
-                </div>
-
-                {isEnded ? endModal() : showQuizContent()}
-
-                {!isEnded &&
-                    <div className="quiz-footer">
-                        <div className="quiz-correct-number">{"Correct: " + correctNumber + "/" + shuffledList.length}</div>
-
-                        <div className="quiz-next-btn">
-                            <button className="btn btn-primary" onClick={() => onNextQuiz(quizIndex + 1)}>Next</button>
+                        <div className="quiz-exit-icon">
+                            <NavLink className="fas fa-times" to={`/folder-detail/${folderId}`}></NavLink>
                         </div>
                     </div>
-                }
+
+                    {isEnded ? endModal() : showQuizContent()}
+
+                    {!isEnded &&
+                        <div className="quiz-footer">
+                            <div className="quiz-correct-number">{"Correct: " + correctNumber + "/" + shuffledList.length}</div>
+
+                            <div className="quiz-next-btn">
+                                <button className="btn btn-primary" onClick={() => onNextQuiz(quizIndex + 1)}>Next</button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
         </div>
     );
 }
